@@ -1,0 +1,8 @@
+body{
+    background-color: rgb(245, 243, 243);
+}
+.img {
+    width: 100vw;
+    height: 70vh;
+    padding: 3%;
+}
