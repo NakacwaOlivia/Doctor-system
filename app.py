@@ -28,7 +28,7 @@ def home():
     return render_template('index.html')
 
 
-@app.route('/login/', methods=['GET'])
+@app.route('/login/', methods=['GET', 'POST'])
 def login():
     cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     # Check if "username" and "password" POST requests exist (user submitted form)
