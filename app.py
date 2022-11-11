@@ -1,8 +1,10 @@
 # from msilib import init_database
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, flash
 from flask_sqlalchemy import SQLAlchemy
 import psycopg2
+import re
 import psycopg2.extras
+from werkzeug.security import generate_password_hash
 
 app = Flask(__name__)
 DB_HOST = 'localhost'
@@ -10,7 +12,8 @@ DB_NAME = 'Doctor-system'
 DB_USER = 'postgres'
 DB_PASS = '@Wdsk5313'
 
-conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
+conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER,
+                        password=DB_PASS, host=DB_HOST)
 
 # ENV = 'dev'
 
@@ -68,8 +71,9 @@ def home():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     if request.method == 'POST':
-        if firstName in request.form and lastName in request.form and password in request.form and age in request.form and contact in request.form and email in request.form and country in request.form:
+        if 'firstName' in request.form and 'lastName' in request.form and 'password' in request.form and 'age' in request.form and 'contact' in request.form and 'email' in request.form and 'country' in request.form:
             firstName = request.form['firstName']
             lastName = request.form['lastName']
             password = request.form['password']
@@ -77,12 +81,28 @@ def signup():
             contact = request.form['contact']
             email = request.form['email']
             country = request.form['country']
-            print(firstName)
-            print(lastName)
-            print(age)
-    
+
+            _hashed_password = generate_password_hash(password)
+
+            cursor.execute('SELECT * FROM register where contact = %d', (contact))
+            account = cursor.fetchone()
+            print(account)
+
+            if account:
+                flash('Account already exists')
+            elif not re.match(r'[^@]+@[^@]+\.[^@]+',email):
+                flash('Invalid email address')
+            elif not contact or not email or not password:
+                flash('Please fill out the form')
+            else:
+                cursor.execute("INSERT INTO register (firstName, lastName, password, age, contact, email, country) VALUES(%S, %S, %S, %d, %d, %S, %s)", (firstName, lastName, _hashed_password, age, contact, email, country))
+                conn.commit()
+                flash('You have successfully registered')
+    elif request.method == 'POST':
+        flash('Please fill out the form')
+
     return render_template('signup.html')
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
