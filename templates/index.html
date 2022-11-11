@@ -1,79 +1,85 @@
 {% extends 'base.html' %} {% block head %} {% endblock %} {% block body %}
 <!-- Adding Navbar -->
-<nav class="navbar fixed-top navbar-expand-lg bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Online Doctor</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNavAltMarkup"
-      aria-controls="navbarNavAltMarkup"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div
-      class="collapse navbar-collapse justify-content-center"
-      id="navbarNavAltMarkup"
-    >
-      <div class="navbar-nav ms-4">
-        <a class="nav-link active ms-4" aria-current="page" href="#">Home</a>
-        <a class="nav-link active ms-4" href="#">Drugs & Diseases</a>
-        <a class="nav-link active ms-4" href="/login.html">Account</a>
+<header class="sticky-top">
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Online Doctor</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="collapse navbar-collapse justify-content-center"
+        id="navbarNavAltMarkup"
+      >
+        <div class="navbar-nav ms-4">
+          <a class="nav-link active ms-4" aria-current="page" href="#">Home</a>
+          <a class="nav-link active ms-4" href="#">Drugs & Diseases</a>
+          <a class="nav-link active ms-4" href="/login.html">Account</a>
+        </div>
       </div>
+      <form class="d-flex justify-content-center" role="search">
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
     </div>
-    <form class="d-flex justify-content-center" role="search">
-      <input
-        class="form-control me-2"
-        type="search"
-        placeholder="Search"
-        aria-label="Search"
-      />
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
+  </nav>
+</header>
 
 <!-- Creating Carousel -->
-<div
-  id="carouselExampleControls"
-  class="carousel slide mt-2"
-  data-bs-ride="carousel"
->
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="static/Images/doc.jpg" class="img d-block" alt="..." />
-    </div>
-    <div class="carousel-item">
-      <img src="" class="d-block w-100" alt="..." />
-    </div>
-    <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="..." />
+<div>
+  <div class="border border-danger h-30">
+    <div
+      id="carouselExampleControls"
+      class="carousel slide w-100"
+      data-bs-ride="carousel"
+    >
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="/static/Images/bg.jpg" class="d-block w-100" alt="..." />
+        </div>
+        <div class="carousel-item">
+          <img src="/static/Images/Covid.jpg" class="d-block w-100" alt="..." />
+        </div>
+        <div class="carousel-item">
+          <img src="..." class="d-block w-100" alt="..." />
+        </div>
+      </div>
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselExampleControls"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselExampleControls"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
   </div>
-  <button
-    class="carousel-control-prev"
-    type="button"
-    data-bs-target="#carouselExampleControls"
-    data-bs-slide="prev"
-  >
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button
-    class="carousel-control-next"
-    type="button"
-    data-bs-target="#carouselExampleControls"
-    data-bs-slide="next"
-  >
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
 </div>
 <!-- About -->
-<hr class="solid">
+<hr class="solid" />
 <div class="container overflow-hidden text-left">
   <h4>Online Doctor</h4>
   <div class="row gx-5">
