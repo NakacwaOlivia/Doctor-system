@@ -102,7 +102,7 @@ def signup():
         # Form is empty... (no POST data)
         flash('Please fill out the form!')
     # Show registration form with message (if any)
-    return render_template('register.html')
+    return render_template('signup.html')
     
 if __name__ == '__main__':
     app.run(debug=True)
