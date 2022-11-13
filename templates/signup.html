@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block head %} {% endblock %} {% block body %}
 <div class="row gx-0">
   <!-- <div class="col-4"></div> -->
-  <div class="col-6 container bg-light mt-4 p-2">
+  <div class="col-6 container bg-light mt-2">
     <h3 class="text-center mt-2">Create Your Account today!!</h3>
     <form
       class="needs-validation p-4"
@@ -92,7 +92,7 @@
         <input type="checkbox" class="form-check-input" id="exampleCheck1" />
         <label class="form-check-label" for="exampleCheck1">Remember me</label>
       </div>
-      <div class="mb-3">
+      <div class="">
         {% with messages = get_flashed_messages() %} {% if messages %} {% for
         message in messages %}
         <div
