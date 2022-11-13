@@ -21,14 +21,17 @@ conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER,
 
 @app.route('/')
 def home():
-    if 'loggedin' in session:
-        # User is loggedin show them the home page
-        return render_template('home.html', username=session['username'])
-    # User is not loggedin redirect to login page
     return render_template('index.html')
 
+def landingPage():
+    if 'loggedin' in session:
+        # User is loggedin show them the home page
+        return render_template('landingpage.html', username=session['username'])
+    # User is not loggedin redirect to login page
+    return render_template('login.html')
 
-@app.route('/login/', methods=['GET', 'POST'])
+
+@app.route('/login/', methods=['GET', 'POST '])
 def login():
     cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     # Check if "username" and "password" POST requests exist (user submitted form)
@@ -95,7 +98,7 @@ def signup():
             flash('Please fill out the form!')
         else:
             # Account doesnt exists and the form data is valid, now insert new account into users table
-            cursor.execute("INSERT INTO register (username, firstName, lastName, password, age, contact, email, country) VALUES(%s, %S, %S, %S, %d, %d, %S, %s)", (username, firstname, lastname, _hashed_password, age, contact, email, country))
+            cursor.execute("INSERT INTO register (username, firstname, lastname, password, age, contact, email, country) VALUES(%s, %S, %S, %S, %d, %d, %S, %s)", (username, firstname, lastname, _hashed_password, age, contact, email, country))
             conn.commit()
             flash('You have successfully registered!')
     elif request.method == 'POST':
@@ -103,6 +106,29 @@ def signup():
         flash('Please fill out the form!')
     # Show registration form with message (if any)
     return render_template('signup.html')
-    
+
+
+@app.route('/logout')
+def logout():
+    # Remove session data, this will log the user out
+   session.pop('loggedin', None)
+   session.pop('id', None)
+   session.pop('username', None)
+   # Redirect to login page
+   return redirect(url_for('login'))
+
+@app.route('/profile')
+def profile(): 
+    cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+   
+    # Check if user is loggedin
+    if 'loggedin' in session:
+        cursor.execute('SELECT * FROM users WHERE id = %s', [session['id']])
+        account = cursor.fetchone()
+        # Show the profile page with account info
+        return render_template('profile.html', account=account)
+    # User is not loggedin redirect to login page
+    return redirect(url_for('login'))
+
 if __name__ == '__main__':
     app.run(debug=True)
